@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var movieListModel: MovieListModel = MovieListModel()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        switch movieListModel.popularMoviesResult {
+        case let .success(popularMovieResult):
+            MovieList(movieList: popularMovieResult.results ?? [Movie]())
+                .refreshable {
+                    await movieListModel.fetchMovieList()
+                }
+        default:
+            Text("Loading Page !!")
+                .task {
+                    await movieListModel.fetchMovieList()
+                }
         }
-        .padding()
     }
 }
 
