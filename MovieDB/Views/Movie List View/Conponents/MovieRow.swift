@@ -9,12 +9,11 @@ import SwiftUI
 
 struct MovieRow: View {
     var movie: Movie
+    let posterImageFrame: CGSize = CGSize(width: 64, height: 96)
     
     var body: some View {
         HStack {
-            RoundedRectangleImage(cornerRadius: 8, imageFileName: movie.poster_path)
-                .frame(width: 72, height: 96)
-            
+            RoundedRectangleImage(imageFrame:posterImageFrame, imageFileName: movie.poster_path)            
             VStack(alignment: .leading) {
                 Spacer()
                 Text(movie.title ?? "Title")

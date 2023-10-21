@@ -21,6 +21,7 @@ struct MovieDescription: View {
             
             Text(movieOverview ?? "Overview")
                 .foregroundColor(Color.black.opacity(0.5))
+                .lineLimit(7)
         }
         
     }

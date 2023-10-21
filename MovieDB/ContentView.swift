@@ -19,10 +19,18 @@ struct ContentView: View {
                     await movieListModel.fetchMovieList()
                 }
         default:
-            Text("Loading Page !!")
-                .task {
-                    await movieListModel.fetchMovieList()
-                }
+            
+            VStack {
+                ProgressView()
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .task {
+                        await movieListModel.fetchMovieList()
+                    }
+                Text("Loading Movies ...")
+                    .font(.title3)
+                    .foregroundColor(.orange)
+                    .bold()
+            }
         }
     }
 }

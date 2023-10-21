@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct RoundedRectangleImage: View {
-    var placeHolderImage: Image = Image("background")
-    var cornerRadius: CGFloat = 20
-    var imageFileName: String?
-    var imagePath: String? {
+    var imageFrame: CGSize
+    
+    var imageFileName: String? = nil
+    
+    private var cornerRadius: CGFloat {
+        return min(imageFrame.width, imageFrame.height) / 10
+    }
+    
+    private var imagePath: String? {
         guard let imageFileName = imageFileName else {
             return nil
         }
@@ -27,23 +32,21 @@ struct RoundedRectangleImage: View {
                         .resizable()
                         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 } placeholder: {
-                    
-                    placeHolderImage
-                        .resizable()
-                        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                    ProgressView()
                 }
             }else {
-                placeHolderImage
+                Image("background")
                     .resizable()
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             }
         }
-
+        .frame(width: imageFrame.width, height: imageFrame.height)
+        
     }
 }
 
 struct RoundedRectangleImage_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedRectangleImage()
+        RoundedRectangleImage(imageFrame: CGSize(width: 200, height: 300))
     }
 }
