@@ -9,10 +9,11 @@ import SwiftUI
 
 @main
 struct MovieDBApp: App {
+    @ObservedObject var movieListModel: MovieListModel = MovieListModel()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(movieListModel: MovieListModel())
         }
     }
 }

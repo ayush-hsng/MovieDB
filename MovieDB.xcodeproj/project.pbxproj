@@ -21,8 +21,9 @@
 		EB4D27672AE1856C004922BC /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D27662AE1856C004922BC /* RequestHandler.swift */; };
 		EB4D27692AE1C306004922BC /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D27682AE1C306004922BC /* MovieList.swift */; };
 		EB4D276B2AE23BF4004922BC /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D276A2AE23BF4004922BC /* MovieRow.swift */; };
-		EB4D276E2AE24FC2004922BC /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D276D2AE24FC2004922BC /* MovieModel.swift */; };
 		EB51BD792AE2E35F0025CD03 /* RoundedRectangleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */; };
+		EBE70A6C2AE42E4C00840DC3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */; };
+		EBE70A6E2AE4308C00840DC3 /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +42,9 @@
 		EB4D27662AE1856C004922BC /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		EB4D27682AE1C306004922BC /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
 		EB4D276A2AE23BF4004922BC /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
-		EB4D276D2AE24FC2004922BC /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleImage.swift; sourceTree = "<group>"; };
+		EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				EB4D273C2AE0F79F004922BC /* MovieDBApp.swift */,
 				EB4D273E2AE0F79F004922BC /* ContentView.swift */,
+				EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */,
 				EB4D27562AE16271004922BC /* Constants */,
 				EB4D27612AE183C6004922BC /* Views */,
 				EB4D275F2AE18344004922BC /* Networking */,
@@ -127,7 +130,6 @@
 			children = (
 				EB4D275B2AE18259004922BC /* Data */,
 				EB4D275D2AE1828B004922BC /* MovieListModel.swift */,
-				EB4D276D2AE24FC2004922BC /* MovieModel.swift */,
 			);
 			path = "Movie List Model";
 			sourceTree = "<group>";
@@ -178,6 +180,7 @@
 		EB51BD772AE2DE0F0025CD03 /* Reusable Componenets */ = {
 			isa = PBXGroup;
 			children = (
+				EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */,
 				EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */,
 			);
 			path = "Reusable Componenets";
@@ -253,16 +256,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4D276E2AE24FC2004922BC /* MovieModel.swift in Sources */,
 				EB4D275E2AE1828B004922BC /* MovieListModel.swift in Sources */,
 				EB4D276B2AE23BF4004922BC /* MovieRow.swift in Sources */,
 				EB4D27672AE1856C004922BC /* RequestHandler.swift in Sources */,
 				EB4D273F2AE0F79F004922BC /* ContentView.swift in Sources */,
 				EB4D27512AE15F61004922BC /* MovieDescription.swift in Sources */,
 				EB4D274F2AE15473004922BC /* MovieStats.swift in Sources */,
+				EBE70A6E2AE4308C00840DC3 /* LoadingPage.swift in Sources */,
 				EB4D27692AE1C306004922BC /* MovieList.swift in Sources */,
 				EB4D27532AE16049004922BC /* Constants.swift in Sources */,
 				EB51BD792AE2E35F0025CD03 /* RoundedRectangleImage.swift in Sources */,
+				EBE70A6C2AE42E4C00840DC3 /* HomePage.swift in Sources */,
 				EB4D273D2AE0F79F004922BC /* MovieDBApp.swift in Sources */,
 				EB4D275A2AE1772D004922BC /* Movie.swift in Sources */,
 				EB4D274D2AE14FB2004922BC /* MovieDetail.swift in Sources */,
