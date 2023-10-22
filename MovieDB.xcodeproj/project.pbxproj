@@ -22,6 +22,10 @@
 		EB4D27692AE1C306004922BC /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D27682AE1C306004922BC /* MovieList.swift */; };
 		EB4D276B2AE23BF4004922BC /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4D276A2AE23BF4004922BC /* MovieRow.swift */; };
 		EB51BD792AE2E35F0025CD03 /* RoundedRectangleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */; };
+		EBD2953B2AE5203C00F07821 /* ErrorDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2953A2AE5203C00F07821 /* ErrorDisplay.swift */; };
+		EBD2953D2AE5271100F07821 /* PageControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2953C2AE5271100F07821 /* PageControll.swift */; };
+		EBD295452AE52E6F00F07821 /* GoBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD295442AE52E6F00F07821 /* GoBackButton.swift */; };
+		EBD295472AE52E8000F07821 /* GoNextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD295462AE52E8000F07821 /* GoNextButton.swift */; };
 		EBE70A6C2AE42E4C00840DC3 /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */; };
 		EBE70A6E2AE4308C00840DC3 /* LoadingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +47,10 @@
 		EB4D27682AE1C306004922BC /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
 		EB4D276A2AE23BF4004922BC /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
 		EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleImage.swift; sourceTree = "<group>"; };
+		EBD2953A2AE5203C00F07821 /* ErrorDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDisplay.swift; sourceTree = "<group>"; };
+		EBD2953C2AE5271100F07821 /* PageControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControll.swift; sourceTree = "<group>"; };
+		EBD295442AE52E6F00F07821 /* GoBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoBackButton.swift; sourceTree = "<group>"; };
+		EBD295462AE52E8000F07821 /* GoNextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoNextButton.swift; sourceTree = "<group>"; };
 		EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,7 +87,6 @@
 			children = (
 				EB4D273C2AE0F79F004922BC /* MovieDBApp.swift */,
 				EB4D273E2AE0F79F004922BC /* ContentView.swift */,
-				EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */,
 				EB4D27562AE16271004922BC /* Constants */,
 				EB4D27612AE183C6004922BC /* Views */,
 				EB4D275F2AE18344004922BC /* Networking */,
@@ -162,9 +169,9 @@
 		EB4D27612AE183C6004922BC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EB51BD772AE2DE0F0025CD03 /* Reusable Componenets */,
 				EB4D27542AE16224004922BC /* Movie Detail View */,
-				EB4D27602AE183B8004922BC /* Movie List View */,
+				EBD295482AE53F6700F07821 /* Home Page View */,
+				EB51BD772AE2DE0F0025CD03 /* Reusable Componenets */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,10 +187,39 @@
 		EB51BD772AE2DE0F0025CD03 /* Reusable Componenets */ = {
 			isa = PBXGroup;
 			children = (
+				EBD2953A2AE5203C00F07821 /* ErrorDisplay.swift */,
 				EBE70A6D2AE4308C00840DC3 /* LoadingPage.swift */,
 				EB51BD782AE2E35F0025CD03 /* RoundedRectangleImage.swift */,
 			);
 			path = "Reusable Componenets";
+			sourceTree = "<group>";
+		};
+		EBD295482AE53F6700F07821 /* Home Page View */ = {
+			isa = PBXGroup;
+			children = (
+				EB4D27602AE183B8004922BC /* Movie List View */,
+				EBD295492AE53F8100F07821 /* Page Controller View */,
+				EBE70A6B2AE42E4C00840DC3 /* HomePage.swift */,
+			);
+			path = "Home Page View";
+			sourceTree = "<group>";
+		};
+		EBD295492AE53F8100F07821 /* Page Controller View */ = {
+			isa = PBXGroup;
+			children = (
+				EBD2954A2AE53FD000F07821 /* Components */,
+				EBD2953C2AE5271100F07821 /* PageControll.swift */,
+			);
+			path = "Page Controller View";
+			sourceTree = "<group>";
+		};
+		EBD2954A2AE53FD000F07821 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EBD295462AE52E8000F07821 /* GoNextButton.swift */,
+				EBD295442AE52E6F00F07821 /* GoBackButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,9 +296,12 @@
 				EB4D276B2AE23BF4004922BC /* MovieRow.swift in Sources */,
 				EB4D27672AE1856C004922BC /* RequestHandler.swift in Sources */,
 				EB4D273F2AE0F79F004922BC /* ContentView.swift in Sources */,
+				EBD2953B2AE5203C00F07821 /* ErrorDisplay.swift in Sources */,
 				EB4D27512AE15F61004922BC /* MovieDescription.swift in Sources */,
+				EBD295452AE52E6F00F07821 /* GoBackButton.swift in Sources */,
 				EB4D274F2AE15473004922BC /* MovieStats.swift in Sources */,
 				EBE70A6E2AE4308C00840DC3 /* LoadingPage.swift in Sources */,
+				EBD2953D2AE5271100F07821 /* PageControll.swift in Sources */,
 				EB4D27692AE1C306004922BC /* MovieList.swift in Sources */,
 				EB4D27532AE16049004922BC /* Constants.swift in Sources */,
 				EB51BD792AE2E35F0025CD03 /* RoundedRectangleImage.swift in Sources */,
@@ -270,6 +309,7 @@
 				EB4D273D2AE0F79F004922BC /* MovieDBApp.swift in Sources */,
 				EB4D275A2AE1772D004922BC /* Movie.swift in Sources */,
 				EB4D274D2AE14FB2004922BC /* MovieDetail.swift in Sources */,
+				EBD295472AE52E8000F07821 /* GoNextButton.swift in Sources */,
 				EB4D27632AE183E8004922BC /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
