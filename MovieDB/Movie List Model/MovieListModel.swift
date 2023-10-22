@@ -21,6 +21,17 @@ class MovieListModel: ObservableObject {
     private let requestHandler: RequestHandler = RequestHandler()
     
     
+    func getMovies(byTitle title: String) -> [Movie]{
+        switch popularMoviesResult {
+        case .success(let result):
+            return (result.results ?? [Movie]()).filter({ movie in
+                (movie.title ?? "").contains(title)
+            })
+        default:
+            return [Movie]()
+        }
+    }
+    
     func getTotalPages() -> Int {
         switch popularMoviesResult {
         case .success(let result):
