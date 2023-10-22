@@ -37,9 +37,9 @@ struct SearchBar: View {
                 Image(systemName: "xmark.circle.fill")
                     .onTapGesture {
                         self.movieListContext = .byPopularity
+                        self.searchTitle = ""
                     }
             }
-            
         }
         .padding()
     }

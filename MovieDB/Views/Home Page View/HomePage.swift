@@ -20,9 +20,10 @@ struct HomePage: View {
     
     var body: some View {
         VStack {
-            Group {
+            NavigationStack {
                 switch movieListModel.popularMoviesResult {
                 case let .success(popularMovieResult):
+                    
                     SearchBar(searchTitle: $searchTitle, movieListModel: self.movieListModel, movieListContext: $movieListContext)
                     
                     switch movieListContext {
@@ -31,6 +32,11 @@ struct HomePage: View {
                             .refreshable {
                                 await movieListModel.fetchMovieList(for: 1)
                             }
+                        PageControll(
+                            movieListModel: movieListModel,
+                            goBackButtonEnabled: self.movieListModel.goToPreviousPageAllowed(),
+                            goNextButtonEnabled: self.movieListModel.goToNextPageAllowed(),
+                            currentPage: $currentPage)
                     case .byTitle:
                         MovieList(movieList: movieListModel.getMovies(byTitle: searchTitle))
                             .refreshable {
@@ -38,18 +44,13 @@ struct HomePage: View {
                             }
                     }
                     
-                    
-                    
-                    PageControll(
-                        movieListModel: movieListModel,
-                        goBackButtonEnabled: self.movieListModel.goToPreviousPageAllowed(),
-                        goNextButtonEnabled: self.movieListModel.goToNextPageAllowed(),
-                        currentPage: $currentPage)
                 case .empty:
+                    
                     LoadingPage()
                         .task {
                             await movieListModel.fetchMovieList(for: 1)
                         }
+                
                 default:
                     LoadingPage()
                 }

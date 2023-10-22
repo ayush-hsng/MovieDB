@@ -12,24 +12,18 @@ struct MovieList: View {
     var movieList: [Movie]
     
     var body: some View {
-        Spacer()
-        
-        NavigationSplitView {
-            List {
-                ForEach(movieList) { movie in
-                    NavigationLink {
-                        MovieDetail(movie: movie)
-                            .navigationTitle(movie.title ?? "Movie Title")
-                    } label: {
-                        MovieRow(movie: movie)
-                    }
+        List {
+            ForEach(movieList) { movie in
+                NavigationLink {
+                    MovieDetail(movie: movie)
+                        .navigationTitle(movie.title ?? "Movie Title")
+                } label: {
+                    MovieRow(movie: movie)
                 }
-            }.listStyle(.plain)
-        } detail: {
-            Text("Select a movie")
+            }
         }
-        
-        Spacer()
+            .listStyle(.plain)
+            .scrollDismissesKeyboard(.immediately)
     }
 }
 
