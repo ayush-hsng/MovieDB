@@ -10,27 +10,13 @@ import SwiftUI
 
 enum RequestType {
     case moviesByPopularity(page: Int)
-}
-
-enum ResponseError: Error {
-    case invalidURL
-    case invalidResponse
-    case invalidData
-    case invalidRequest
+    case moviesByTitle(title:String, page: Int)
 }
 
 class RequestHandler {
     var decoder: JSONDecoder = JSONDecoder()
     
-    func handleRequest(of type: RequestType) async -> Result<PopularMovieResult, Error> {
-        switch type {
-        case let .moviesByPopularity(page):
-            let response = await self.handleMovieByPopularityRequest(byPage: page)
-            return response
-        }
-    }
-    
-    func handleMovieByPopularityRequest(byPage page: Int) async -> Result<PopularMovieResult, Error> {
+    func handleMovieByPopularityRequest(byPage page: Int) async -> Result<MoviesByPopularityResult, Error> {
         let queryList = [   "api_key" : API_KEY,
                             "language" : LANG_CODE,
                             "page" : String(page)]
@@ -57,7 +43,7 @@ class RequestHandler {
                 return .failure(ResponseError.invalidResponse)
             }
             
-            guard let popularMoviesData = try? self.decoder.decode(PopularMovieResult.self, from: data) else {
+            guard let popularMoviesData = try? self.decoder.decode(MoviesByPopularityResult.self, from: data) else {
                 return .failure(ResponseError.invalidData)
             }
             
@@ -69,4 +55,44 @@ class RequestHandler {
         
     }
     
+    
+    func handleMovieByTitleRequest(_ title: String, byPage page: Int) async -> Result<MoviesByTitleResult, Error> {
+        let queryList = [   "api_key" : API_KEY,
+                            "language" : LANG_CODE,
+                            "page" : String(page),
+                            "query" : title]
+        
+        let headers = ["accept": "application/json"]
+        
+        let urlString = API_SEARCH_MOVIES_URL_STRING
+        var urlComponent = URLComponents(string: urlString)
+        urlComponent?.queryItems = queryList.map() { URLQueryItem(name: $0, value: $1)}
+        
+        guard let url = urlComponent?.url else {
+            return .failure(ResponseError.invalidURL)
+        }
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                return .failure(ResponseError.invalidResponse)
+            }
+            
+            guard let popularMoviesData = try? self.decoder.decode(MoviesByTitleResult.self, from: data) else {
+                return .failure(ResponseError.invalidData)
+            }
+            
+            return .success(popularMoviesData)
+        }catch {
+            print(error)
+            return .failure(ResponseError.invalidRequest)
+        }
+        
+    }
 }

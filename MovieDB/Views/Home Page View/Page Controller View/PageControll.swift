@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct PageControll: View {
-    var movieListModel: MovieListModel
-    let goBackButtonEnabled: Bool
-    let goNextButtonEnabled: Bool
+    var pageController: PageController
     @Binding var currentPage: Int
     
     var body: some View {
         HStack {
-            
-            GoBackButton(isEnabled: self.goBackButtonEnabled, movieListModel: self.movieListModel, currentPage: $currentPage)
+            GoBackButton(pageController: self.pageController, currentPage: $currentPage)
             
             Spacer()
-            Text("Page \(self.currentPage) of \(self.movieListModel.getTotalPages())")
+            Text("Page \(self.currentPage) of \(self.pageController.getTotalPages())")
             Spacer()
             
-            GoNextButton(isEnabled: self.goNextButtonEnabled, movieListModel: self.movieListModel, currentPage: $currentPage)
+            GoNextButton(pageController: self.pageController, currentPage: $currentPage)
             
         }.padding()
     }
@@ -30,6 +27,6 @@ struct PageControll: View {
 
 struct PageControll_Previews: PreviewProvider {
     static var previews: some View {
-        PageControll(movieListModel: MovieListModel(), goBackButtonEnabled: false, goNextButtonEnabled: false, currentPage: .constant(1))
+        PageControll(pageController: MoviesByPopularityViewModel(), currentPage: .constant(1))
     }
 }

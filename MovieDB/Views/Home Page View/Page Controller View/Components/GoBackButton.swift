@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct GoBackButton: View {
-    let isEnabled: Bool
-    var movieListModel: MovieListModel
+    var pageController: PageController
     @Binding var currentPage: Int
     
     var body: some View {
-        if self.isEnabled {
+        if self.pageController.goToPreviousPageAllowed(for: currentPage) {
             Image(systemName: "backward.frame.fill")
                 .foregroundColor(.blue)
                 .onTapGesture {
                     Task {
                         self.currentPage -= 1
-                        await self.movieListModel.fetchMovieList(for: self.currentPage)
+                        await self.pageController.loadPage(currentPage)
                     }
                 }
         }else {
@@ -31,6 +30,6 @@ struct GoBackButton: View {
 
 struct GoBackButton_Previews: PreviewProvider {
     static var previews: some View {
-        GoBackButton( isEnabled: true, movieListModel: MovieListModel(), currentPage: .constant(1))
+        GoBackButton(pageController: MoviesByPopularityViewModel(), currentPage: .constant(1))
     }
 }

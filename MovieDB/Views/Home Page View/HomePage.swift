@@ -13,46 +13,65 @@ enum MovieListContext {
 }
 
 struct HomePage: View {
-    @ObservedObject var movieListModel: MovieListModel
-    @State private var currentPage: Int = 1
-    @State private var movieListContext: MovieListContext = .byPopularity
+    @ObservedObject var moviesByPopularityViewModel: MoviesByPopularityViewModel
+    @ObservedObject var moviesByTitleViewModel: MoviesByTitleViewModel
+    @State private var currentMoviesByPopularityPage: Int = 1
+    @State private var currentMoviesByTitlePage: Int = 1
+    @State private var viewContext: MovieListContext = .byPopularity
     @State private var searchTitle: String = ""
     
     var body: some View {
         VStack {
             NavigationStack {
-                switch movieListModel.popularMoviesResult {
-                case let .success(popularMovieResult):
-                    
-                    SearchBar(searchTitle: $searchTitle, movieListModel: self.movieListModel, movieListContext: $movieListContext)
-                    
-                    switch movieListContext {
-                    case .byPopularity:
-                        MovieList(movieList: popularMovieResult.results ?? [Movie]())
-                            .refreshable {
-                                await movieListModel.fetchMovieList(for: 1)
+                switch self.viewContext {
+                case .byPopularity:
+                    switch self.moviesByPopularityViewModel.modelState {
+                    case .empty:
+                        LoadingPage()
+                            .task {
+                                await moviesByPopularityViewModel.fetchMoviesByPopularity(for: 1)
                             }
-                        PageControll(
-                            movieListModel: movieListModel,
-                            goBackButtonEnabled: self.movieListModel.goToPreviousPageAllowed(),
-                            goNextButtonEnabled: self.movieListModel.goToNextPageAllowed(),
-                            currentPage: $currentPage)
-                    case .byTitle:
-                        MovieList(movieList: movieListModel.getMovies(byTitle: searchTitle))
+                    case .working(let results):
+                        Spacer()
+                        SearchBar(searchTitle: $searchTitle, movieByTitleModel: moviesByTitleViewModel, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
+                        MovieList(movieList: results.results[currentMoviesByPopularityPage]?.results ?? [Movie]())
                             .refreshable {
-                                await movieListModel.fetchMovieList(for: 1)
+                                await moviesByPopularityViewModel.fetchMoviesByPopularity(for: currentMoviesByPopularityPage)
                             }
+                        PageControll(pageController: moviesByPopularityViewModel,currentPage: $currentMoviesByPopularityPage)
+                    case .currupt:
+                        ErrorDisplay()
                     }
-                    
-                case .empty:
-                    
-                    LoadingPage()
-                        .task {
-                            await movieListModel.fetchMovieList(for: 1)
-                        }
-                
-                default:
-                    LoadingPage()
+                case .byTitle:
+                    switch self.moviesByTitleViewModel.modelState {
+                    case .empty:
+                        LoadingPage()
+                            .task {
+                                self.moviesByTitleViewModel.setModelForSearching(title: self.searchTitle)
+                                await self.moviesByTitleViewModel.fetchMoviesByTitle(self.searchTitle, for: 1)
+                            }
+                    case .working(let results):
+                        Spacer()
+                        HStack {
+                            SearchBar(searchTitle: $searchTitle, movieByTitleModel: moviesByTitleViewModel, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
+                            Button {
+                                self.searchTitle = ""
+                                self.currentMoviesByTitlePage = 1
+                                self.moviesByTitleViewModel.resetModel()
+                                self.viewContext = .byPopularity
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.red)
+                            }
+                        }.padding()
+                        MovieList(movieList: results.results[currentMoviesByTitlePage]?.results ?? [Movie]())
+                            .refreshable {
+                                await moviesByTitleViewModel.fetchMoviesByTitle(searchTitle, for: currentMoviesByTitlePage)
+                            }
+                        PageControll(pageController: moviesByTitleViewModel,currentPage: $currentMoviesByTitlePage)
+                    case .currupt:
+                        ErrorDisplay()
+                    }
                 }
             }
         }
@@ -61,6 +80,6 @@ struct HomePage: View {
 
 struct HomePage_Previews: PreviewProvider {
     static var previews: some View {
-        HomePage(movieListModel: MovieListModel())
+        HomePage(moviesByPopularityViewModel: MoviesByPopularityViewModel(), moviesByTitleViewModel: MoviesByTitleViewModel())
     }
 }

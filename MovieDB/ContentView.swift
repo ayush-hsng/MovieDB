@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var movieListModel: MovieListModel
+    @ObservedObject var moviesByPopularityViewModel: MoviesByPopularityViewModel
+    @ObservedObject var moviesByTitleViewModel: MoviesByTitleViewModel
     
     var body: some View {
-        HomePage(movieListModel: movieListModel)
+        HomePage(moviesByPopularityViewModel: moviesByPopularityViewModel, moviesByTitleViewModel: moviesByTitleViewModel)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(movieListModel: MovieListModel())
+        ContentView(moviesByPopularityViewModel: MoviesByPopularityViewModel(), moviesByTitleViewModel: MoviesByTitleViewModel())
     }
 }

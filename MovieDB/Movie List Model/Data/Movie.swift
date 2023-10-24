@@ -42,10 +42,17 @@ struct Interval: Codable {
     var minimum: String
 }
 
-struct PopularMovieResult: Codable {
+struct MoviesByPopularityResult: Codable {
     var dates: Interval?
     var page: Int
-    var results: [Movie]?
+    var results: [Movie]
+    var total_pages: Int
+    var total_results: Int
+}
+
+struct MoviesByTitleResult: Codable {
+    var page: Int
+    var results: [Movie]
     var total_pages: Int
     var total_results: Int
 }
