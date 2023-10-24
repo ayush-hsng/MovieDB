@@ -9,8 +9,6 @@ import Foundation
 
 class MoviesByTitleViewModel: ObservableObject, MoviesSearchController {
     
-    
-    
     struct ResultsRecord {
         let totalPages: Int
         let results: [Int: APIResponse]
@@ -63,21 +61,6 @@ class MoviesByTitleViewModel: ObservableObject, MoviesSearchController {
     func resetController() {
         self.modelState = .empty
     }
-    
-    
-    
-//    @MainActor
-//    func resetModel() {
-//        self.modelState = .empty
-//    }
-//
-//    func setModelForSearching(title: String) {
-//        if searchTitle != title {
-//            self.searchTitle = title
-//        }
-//    }
-    
-    //
     
     func getMoviesByTitle(_ title: String, for page: Int = 1) -> Result<[Movie], GetMoviesListErrorResult>  {
         switch modelState {

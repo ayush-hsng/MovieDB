@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 class MoviesByPopularityViewModel: ObservableObject, PageController {
     
@@ -75,6 +74,7 @@ class MoviesByPopularityViewModel: ObservableObject, PageController {
         switch result {
             //
         case .success(let moviesByPopularityResult):
+            print(moviesByPopularityResult)
             switch self.modelState {
             case .empty:
                 guard page == 1 else {

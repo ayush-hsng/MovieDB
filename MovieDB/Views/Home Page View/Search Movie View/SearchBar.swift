@@ -18,7 +18,6 @@ struct SearchBar: View {
     var cancelButtonView: some View {
         Button {
             self.searchTitle = ""
-            self.resetSearchController()
             self.setViewContext(to: .byPopularity)
         } label: {
             Image(systemName: "xmark.circle.fill")
@@ -43,6 +42,7 @@ struct SearchBar: View {
             if !self.searchTitle.isEmpty {
                 switch self.viewContext {
                 case .byPopularity:
+                    self.resetSearchController()
                     self.setViewContext(to: .byTitle)
                 case .byTitle:
                     self.resetSearchController()
