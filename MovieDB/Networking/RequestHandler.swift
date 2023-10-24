@@ -16,7 +16,16 @@ enum RequestType {
 class RequestHandler {
     var decoder: JSONDecoder = JSONDecoder()
     
-    func handleMovieByPopularityRequest(byPage page: Int) async -> Result<MoviesByPopularityResult, Error> {
+    func handleRequest(for requestType: RequestType) async -> Result<APIResponse, Error> {
+        switch requestType {
+        case let .moviesByPopularity(page):
+            return await self.handleMovieByPopularityRequest(byPage: page)
+        case let .moviesByTitle(title, page):
+            return await self.handleMovieByTitleRequest(title, byPage: page)
+        }
+    }
+    
+    private func handleMovieByPopularityRequest(byPage page: Int) async -> Result<APIResponse, Error> {
         let queryList = [   "api_key" : API_KEY,
                             "language" : LANG_CODE,
                             "page" : String(page)]
@@ -43,7 +52,7 @@ class RequestHandler {
                 return .failure(ResponseError.invalidResponse)
             }
             
-            guard let popularMoviesData = try? self.decoder.decode(MoviesByPopularityResult.self, from: data) else {
+            guard let popularMoviesData = try? self.decoder.decode(APIResponse.self, from: data) else {
                 return .failure(ResponseError.invalidData)
             }
             
@@ -52,11 +61,9 @@ class RequestHandler {
             print(error)
             return .failure(ResponseError.invalidRequest)
         }
-        
     }
     
-    
-    func handleMovieByTitleRequest(_ title: String, byPage page: Int) async -> Result<MoviesByTitleResult, Error> {
+    private func handleMovieByTitleRequest(_ title: String, byPage page: Int) async -> Result<APIResponse, Error> {
         let queryList = [   "api_key" : API_KEY,
                             "language" : LANG_CODE,
                             "page" : String(page),
@@ -84,7 +91,7 @@ class RequestHandler {
                 return .failure(ResponseError.invalidResponse)
             }
             
-            guard let popularMoviesData = try? self.decoder.decode(MoviesByTitleResult.self, from: data) else {
+            guard let popularMoviesData = try? self.decoder.decode(APIResponse.self, from: data) else {
                 return .failure(ResponseError.invalidData)
             }
             
@@ -95,4 +102,5 @@ class RequestHandler {
         }
         
     }
+
 }

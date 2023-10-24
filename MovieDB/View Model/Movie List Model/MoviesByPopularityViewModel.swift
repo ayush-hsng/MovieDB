@@ -12,7 +12,7 @@ class MoviesByPopularityViewModel: ObservableObject, PageController {
     
     struct ResultsRecord {
         let totalPages: Int
-        let results: [Int: MoviesByPopularityResult]
+        let results: [Int: APIResponse]
     }
     
     @Published var modelState: ModelState<ResultsRecord> = .empty
@@ -71,7 +71,7 @@ class MoviesByPopularityViewModel: ObservableObject, PageController {
     
     @MainActor
     func fetchMoviesByPopularity(for page: Int = 1) async {
-        let result = await self.requestHandler.handleMovieByPopularityRequest(byPage: page)
+        let result = await self.requestHandler.handleRequest(for: RequestType.moviesByPopularity(page: page))
         switch result {
             //
         case .success(let moviesByPopularityResult):

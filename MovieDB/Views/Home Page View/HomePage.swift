@@ -20,6 +20,19 @@ struct HomePage: View {
     @State private var viewContext: MovieListContext = .byPopularity
     @State private var searchTitle: String = ""
     
+//    var cancelButtonView: some View {
+//        Button {
+//            self.searchTitle = ""
+//            self.currentMoviesByTitlePage = 1
+//            self.moviesByTitleViewModel.resetController()
+//            self.viewContext = .byPopularity
+//        } label: {
+//            Image(systemName: "xmark.circle.fill")
+//                .foregroundColor(.red)
+//        }
+//    }
+    
+    
     var body: some View {
         VStack {
             NavigationStack {
@@ -33,7 +46,7 @@ struct HomePage: View {
                             }
                     case .working(let results):
                         Spacer()
-                        SearchBar(searchTitle: $searchTitle, movieByTitleModel: moviesByTitleViewModel, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
+                        SearchBar(moviesSearchController: moviesByTitleViewModel, searchTitle: $searchTitle, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
                         MovieList(movieList: results.results[currentMoviesByPopularityPage]?.results ?? [Movie]())
                             .refreshable {
                                 await moviesByPopularityViewModel.fetchMoviesByPopularity(for: currentMoviesByPopularityPage)
@@ -47,22 +60,13 @@ struct HomePage: View {
                     case .empty:
                         LoadingPage()
                             .task {
-                                self.moviesByTitleViewModel.setModelForSearching(title: self.searchTitle)
+                                self.moviesByTitleViewModel.setForSearching(title: self.searchTitle)
                                 await self.moviesByTitleViewModel.fetchMoviesByTitle(self.searchTitle, for: 1)
                             }
                     case .working(let results):
                         Spacer()
                         HStack {
-                            SearchBar(searchTitle: $searchTitle, movieByTitleModel: moviesByTitleViewModel, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
-                            Button {
-                                self.searchTitle = ""
-                                self.currentMoviesByTitlePage = 1
-                                self.moviesByTitleViewModel.resetModel()
-                                self.viewContext = .byPopularity
-                            } label: {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.red)
-                            }
+                            SearchBar(moviesSearchController: moviesByTitleViewModel, searchTitle: $searchTitle, viewContext: $viewContext, currentPage: $currentMoviesByTitlePage)
                         }.padding()
                         MovieList(movieList: results.results[currentMoviesByTitlePage]?.results ?? [Movie]())
                             .refreshable {

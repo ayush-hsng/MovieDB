@@ -7,11 +7,13 @@
 
 import Foundation
 
-class MoviesByTitleViewModel: ObservableObject, PageController {
+class MoviesByTitleViewModel: ObservableObject, MoviesSearchController {
+    
+    
     
     struct ResultsRecord {
         let totalPages: Int
-        let results: [Int: MoviesByTitleResult]
+        let results: [Int: APIResponse]
     }
     
     @Published var modelState: ModelState<ResultsRecord> = .empty
@@ -51,17 +53,29 @@ class MoviesByTitleViewModel: ObservableObject, PageController {
         await self.fetchMoviesByTitle( searchTitle, for: page)
     }
     
-    @MainActor
-    func resetModel() {
-        self.modelState = .empty
-    }
     
-    @MainActor
-    func setModelForSearching(title: String) {
+    func setForSearching(title: String) {
         if searchTitle != title {
             self.searchTitle = title
         }
     }
+    @MainActor
+    func resetController() {
+        self.modelState = .empty
+    }
+    
+    
+    
+//    @MainActor
+//    func resetModel() {
+//        self.modelState = .empty
+//    }
+//
+//    func setModelForSearching(title: String) {
+//        if searchTitle != title {
+//            self.searchTitle = title
+//        }
+//    }
     
     //
     
@@ -87,7 +101,7 @@ class MoviesByTitleViewModel: ObservableObject, PageController {
     
     @MainActor
     func fetchMoviesByTitle(_ title: String, for page: Int) async {
-        let response = await requestHandler.handleMovieByTitleRequest(title, byPage: page)
+        let response = await requestHandler.handleRequest(for: RequestType.moviesByTitle(title: title, page: page))
         switch response {
             //
         case .success(let movieByTitleResult):

@@ -8,31 +8,63 @@
 import SwiftUI
 
 struct SearchBar: View {
+    var moviesSearchController: MoviesSearchController
+    
     @Binding var searchTitle: String
-    var movieByTitleModel: MoviesByTitleViewModel
     @Binding var viewContext: MovieListContext
     @Binding var currentPage: Int
+    
+    @MainActor
+    var cancelButtonView: some View {
+        Button {
+            self.searchTitle = ""
+            self.resetSearchController()
+            self.setViewContext(to: .byPopularity)
+        } label: {
+            Image(systemName: "xmark.circle.fill")
+                .foregroundColor(.red)
+        }
+    }
+    
+    @MainActor
+    func resetSearchController() {
+        self.currentPage = 1
+        self.moviesSearchController.setForSearching(title: self.searchTitle)
+        self.moviesSearchController.resetController()
+    }
+    
+    func setViewContext(to context: MovieListContext) {
+        self.viewContext = context
+    }
+    
+    @MainActor
+    var searchButton: some View {
+        Button {
+            if !self.searchTitle.isEmpty {
+                switch self.viewContext {
+                case .byPopularity:
+                    self.setViewContext(to: .byTitle)
+                case .byTitle:
+                    self.resetSearchController()
+                }
+            }
+        } label: {
+            Image(systemName: "magnifyingglass")
+            Text("Search")
+        }.foregroundColor(.gray)
+    }
+
     
     var body: some View {
         HStack {
             TextField("Enter movie title", text: $searchTitle)
-            Button {
-                switch viewContext {
-                case .byPopularity:
-                    if !searchTitle.isEmpty {
-                        self.viewContext = .byTitle
-                    }
-                case .byTitle:
-                    if !searchTitle.isEmpty {
-                        self.movieByTitleModel.setModelForSearching(title: searchTitle)
-                        self.currentPage = 1
-                        self.movieByTitleModel.resetModel()
-                    }
-                }
-            } label: {
-                Image(systemName: "magnifyingglass")
-                Text("Search")
-            }.foregroundColor(.gray)
+            searchButton
+            switch viewContext {
+            case .byPopularity:
+                EmptyView()
+            case .byTitle:
+                cancelButtonView
+            }
         }
         .padding()
     }
@@ -40,6 +72,6 @@ struct SearchBar: View {
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar(searchTitle: .constant("Harry"), movieByTitleModel: MoviesByTitleViewModel(), viewContext: .constant(.byTitle), currentPage: .constant(1))
+        SearchBar(moviesSearchController: MoviesByTitleViewModel(), searchTitle: .constant("Harry"), viewContext: .constant(.byTitle), currentPage: .constant(1))
     }
 }

@@ -13,3 +13,9 @@ protocol PageController {
     func goToPreviousPageAllowed(for currentPage: Int) -> Bool
     func loadPage(_ page:Int) async 
 }
+
+protocol MoviesSearchController: PageController {
+    func setForSearching(title: String)
+    @MainActor func resetController()
+}
+
