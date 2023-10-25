@@ -99,9 +99,9 @@
 			children = (
 				EB4D273C2AE0F79F004922BC /* MovieDBApp.swift */,
 				EB4D273E2AE0F79F004922BC /* ContentView.swift */,
-				EB9A7A882AE7BF3E0070F8AF /* View Model */,
 				EB9A7A832AE6A3030070F8AF /* Types */,
 				EB4D27562AE16271004922BC /* Constants */,
+				EB9A7A882AE7BF3E0070F8AF /* View Model */,
 				EB4D27612AE183C6004922BC /* Views */,
 				EB4D275F2AE18344004922BC /* Networking */,
 				EB4D27402AE0F7A0004922BC /* Assets.xcassets */,
@@ -183,6 +183,7 @@
 		EB4D27612AE183C6004922BC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB9A7A8E2AE7CCB60070F8AF /* View Types */,
 				EB4D27542AE16224004922BC /* Movie Detail View */,
 				EBD295482AE53F6700F07821 /* Home Page View */,
 				EB51BD772AE2DE0F0025CD03 /* Reusable Componenets */,
@@ -211,8 +212,6 @@
 		EB9A7A832AE6A3030070F8AF /* Types */ = {
 			isa = PBXGroup;
 			children = (
-				EB9A7A8E2AE7CCB60070F8AF /* View Types */,
-				EB9A7A8B2AE7CC8D0070F8AF /* Model Types */,
 				EB9A7A862AE6A3F90070F8AF /* ErrorTypes.swift */,
 			);
 			path = Types;
@@ -221,6 +220,7 @@
 		EB9A7A882AE7BF3E0070F8AF /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				EB9A7A8B2AE7CC8D0070F8AF /* Model Types */,
 				EB4D27582AE162F1004922BC /* Movie List Model */,
 				EB9A7A7B2AE64A900070F8AF /* AppViewModel.swift */,
 			);
@@ -230,17 +230,9 @@
 		EB9A7A8B2AE7CC8D0070F8AF /* Model Types */ = {
 			isa = PBXGroup;
 			children = (
-				EB9A7A8D2AE7CCAC0070F8AF /* Model State */,
 				EB9A7A842AE6A3180070F8AF /* ModelProtocols.swift */,
 			);
 			path = "Model Types";
-			sourceTree = "<group>";
-		};
-		EB9A7A8D2AE7CCAC0070F8AF /* Model State */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Model State";
 			sourceTree = "<group>";
 		};
 		EB9A7A8E2AE7CCB60070F8AF /* View Types */ = {

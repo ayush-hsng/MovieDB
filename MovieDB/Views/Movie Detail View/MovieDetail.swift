@@ -14,27 +14,28 @@ struct MovieDetail: View {
     
     var body: some View {
         
-        VStack(alignment: .leading ) {
-            
-            HStack {
-                RoundedRectangleImage(imageFrame: posterImageFrame, imageFileName: movie.poster_path)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8))
+        ScrollView {
+            VStack(alignment: .leading ) {
                 
-                MovieStats(releaseData: movie.release_date, ratings: movie.vote_average, popularity: movie.popularity)
+                HStack {
+                    RoundedRectangleImage(imageFrame: posterImageFrame, imageFileName: movie.poster_path)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 8))
+                    
+                    MovieStats(releaseData: movie.release_date, ratings: movie.vote_average, popularity: movie.popularity)
+                    
+                    Spacer()
+                }
+                .padding()
+                .frame(height: 320)
+                
+                MovieDescription(movieOverview: movie.overview)
+                    .padding(EdgeInsets(top: 32, leading: 20, bottom: 0, trailing: 16 ))
+                
                 
                 Spacer()
             }
-            .padding()
-            .frame(height: 320)
-            
-            MovieDescription(movieOverview: movie.overview)
-                .padding(EdgeInsets(top: 32, leading: 20, bottom: 0, trailing: 16 ))
-            
-            
-            Spacer()
+            .padding(EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0))
         }
-        .padding(EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0))
-        
         
     }
 }
